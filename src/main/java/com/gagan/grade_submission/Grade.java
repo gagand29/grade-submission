@@ -1,20 +1,19 @@
 package com.gagan.grade_submission;
+import java.util.UUID;
+
 
 public class Grade {
     private String name;
     private String subject;
     private String score;
+    private String id;
 
 
 
 
-    public Grade(String name, String subject, String score) {
-        this.name = name;
-        this.subject = subject;
-        this.score = score;
-    }
 
     public Grade() {
+        this.id= UUID.randomUUID().toString();
     }
 
     public String getName() {
@@ -31,6 +30,14 @@ public class Grade {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getScore() {
