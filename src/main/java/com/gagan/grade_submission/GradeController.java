@@ -2,11 +2,15 @@ package com.gagan.grade_submission;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -27,7 +31,15 @@ public class GradeController {
     }
 
     @PostMapping("/handleSubmit")
-    public String submitForm(Grade grade) {
+    public String submitForm(@Valid Grade grade , BindingResult result) {
+        System.out.println("Has errors?: " + result.hasErrors());
+        if(result.hasErrors())
+        {
+            return "form";
+        }
+        System.out.println(grade.getSubject());
+        System.out.println(grade.getName());
+
         int index = getGradeIndex(grade.getId());
         if(index== Constants.NOT_FOUND)
         {
