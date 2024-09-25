@@ -1,4 +1,4 @@
-package com.gagan.grade_submission;
+package com.gagan.grade_submission.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.gagan.grade_submission.Constants;
+import com.gagan.grade_submission.Grade;
+import com.gagan.grade_submission.repository.GradeRepository;
+import com.gagan.grade_submission.service.GradeService;
 
 import jakarta.validation.Valid;
 
@@ -20,12 +25,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class GradeController {
 
     // Initialize the list with Arrays.asList
-    List<Grade> StudentGrades = new ArrayList<>();
+    GradeService gradeService = new GradeService();
 
     @GetMapping("/")
     public String gradeForm(Model model, @RequestParam(required = false) String id) {
-        int index=getGradeIndex(id);
-       model.addAttribute("grade", index== Constants.NOT_FOUND  ? new Grade(): StudentGrades.get(index));
+       model.addAttribute("grade", gradeService.getGradeById(id));
 
         return "form";
     }
@@ -40,33 +44,17 @@ public class GradeController {
         System.out.println(grade.getSubject());
         System.out.println(grade.getName());
 
-        int index = getGradeIndex(grade.getId());
-        if(index== Constants.NOT_FOUND)
-        {
-            StudentGrades.add(grade);
-        }
-        else{
-            StudentGrades.set(index,grade);
-        }
+        gradeService.submitGrade(grade);
         
         return "redirect:/grades";
     }
-    
     
 
     @GetMapping("/grades")
     public String getGrades(Model model) {
 
-        model.addAttribute("grades", StudentGrades);
+        model.addAttribute("grades", gradeService.getGrades());
         return "grades";
     }
-
-    public Integer getGradeIndex(String id){
-        for(int i=0; i< StudentGrades.size();i++)
-        {
-            if(StudentGrades.get(i).getId().equals(id))
-            return i;
-        }
-        return Constants.NOT_FOUND;
-    }
+    
 }
