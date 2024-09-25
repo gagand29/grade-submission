@@ -1,16 +1,20 @@
 package com.gagan.grade_submission;
 import java.util.UUID;
 
+import jakarta.validation.constraints.NotBlank;
+
 
 public class Grade {
+
+    @NotBlank(message = "Name of the student cannot be blank")
     private String name;
+
+    @NotBlank(message = " subject cannot be balnk")
     private String subject;
+
+    @Score(message = "score must a letter grade in uppercase")
     private String score;
     private String id;
-
-
-
-
 
     public Grade() {
         this.id= UUID.randomUUID().toString();
