@@ -2,13 +2,18 @@ package com.gagan.grade_submission.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.gagan.grade_submission.Constants;
 import com.gagan.grade_submission.Grade;
 import com.gagan.grade_submission.repository.GradeRepository;
 
+@Service
 public class GradeService {
 
-    GradeRepository gradeRepository = new GradeRepository();
+    @Autowired
+    GradeRepository gradeRepository ;
 
     public Grade getGrade(int index) {
     return gradeRepository.getGrade(index);

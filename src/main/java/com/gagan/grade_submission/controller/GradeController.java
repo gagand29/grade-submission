@@ -1,5 +1,6 @@
 package com.gagan.grade_submission.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,23 +10,20 @@ import java.util.Arrays;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gagan.grade_submission.Constants;
 import com.gagan.grade_submission.Grade;
-import com.gagan.grade_submission.repository.GradeRepository;
 import com.gagan.grade_submission.service.GradeService;
 
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
 @Controller
 public class GradeController {
 
-    // Initialize the list with Arrays.asList
-    GradeService gradeService = new GradeService();
+    @Autowired
+    GradeService gradeService;
 
     @GetMapping("/")
     public String gradeForm(Model model, @RequestParam(required = false) String id) {

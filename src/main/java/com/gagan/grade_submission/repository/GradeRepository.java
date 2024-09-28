@@ -2,9 +2,12 @@ package com.gagan.grade_submission.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 import com.gagan.grade_submission.Grade;
 
+
+@Repository
 public class GradeRepository {
    
    private List<Grade> StudentGrades = new ArrayList<>();
